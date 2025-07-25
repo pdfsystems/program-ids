@@ -45,7 +45,12 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'read' => [
+                'host' => env('DB_HOST_R', env('DB_HOST', '127.0.0.1')),
+            ],
+            'write' => [
+                'host' => env('DB_HOST_RW', env('DB_HOST', '127.0.0.1')),
+            ],
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'program_ids'),
             'username' => env('DB_USERNAME', 'pids'),
