@@ -23,4 +23,13 @@ class ProgramFactory extends Factory
             'user_id' => User::factory(),
         ];
     }
+
+    public function forUser(User $user): self
+    {
+        return $this->state(function (array $attributes) use ($user) {
+            return [
+                'user_id' => $user->id,
+            ];
+        });
+    }
 }
