@@ -16,7 +16,7 @@ abstract class ProgramList extends Component
     public function render(): View
     {
         return view('livewire.program-list', [
-            'programs' => $this->getPrograms()
+            'programs' => $this->getPrograms(),
         ]);
     }
 
