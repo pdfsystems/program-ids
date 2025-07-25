@@ -17,7 +17,9 @@ RUN --mount=type=secret,id=FLUX_LICENSE_KEY \
  && setcap -r /usr/local/bin/frankenphp \
  && composer config "http-basic.composer.fluxui.dev" "${FLUX_USERNAME}" "$(cat /run/secrets/FLUX_LICENSE_KEY)" \
  && composer install && npm install && npm run build \
- && chown -R www-data:www-data /app \
+ && mkdir /config/psysh && chown -R ${USER}:${USER} /config/psysh \
+ && chown -R ${USER}:${USER} /data/caddy && chown -R ${USER}:${USER} /config/caddy \
+ && chown -R ${USER}:${USER} /app \
  && rm -f /app/auth.json
 
 USER ${USER}
