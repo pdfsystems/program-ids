@@ -6,15 +6,16 @@
         </flux:table.columns>
 
         <flux:table.rows>
-            <flux:table.row class="bg-green-50 dark:bg-green-900 font-bold">
+            <flux:table.row class="font-bold">
                 <flux:table.cell>
                     {{ __('New') }}
                 </flux:table.cell>
                 <flux:table.cell>
                     <form wire:submit.prevent="saveNewProgram" class="flex flex-row space-x-4">
                         <flux:input wire:model="newProgramName"/>
-                        <flux:button type="submit">{{ __('Save') }}</flux:button>
+                        <flux:button type="submit" variant="primary">{{ __('Save') }}</flux:button>
                     </form>
+                    <flux:error name="newProgramName" />
                 </flux:table.cell>
 
                 <flux:table.cell />

@@ -7,10 +7,12 @@ use Flux\Flux;
 use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 abstract class ProgramList extends Component
 {
+    #[Validate(['required', 'min:1'])]
     public string $newProgramName = '';
 
     public function render(): View
@@ -22,6 +24,8 @@ abstract class ProgramList extends Component
 
     public function saveNewProgram(): void
     {
+        $this->validate();
+
         try {
             $program = Program::create([
                 'user_id' => auth()->id(),
