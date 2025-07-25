@@ -13,7 +13,8 @@ COPY . /app
 
 RUN --mount=type=secret,id=FLUX_LICENSE_KEY \
     FLUX_USERNAME=${FLUX_USERNAME} \
-    apt-get update && apt-get install -y ghostscript procps && apt-get clean \
+    useradd ${USER} \
+ && setcap -r /usr/local/bin/frankenphp \
  && composer config "http-basic.composer.fluxui.dev" "${FLUX_USERNAME}" "$(cat /run/secrets/FLUX_LICENSE_KEY)" \
  && composer install && npm install && npm run build \
  && chown -R www-data:www-data /app \
