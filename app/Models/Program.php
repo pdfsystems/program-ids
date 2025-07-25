@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Cache\LockTimeoutException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Cache;
 
 class Program extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = [
         'application',
         'user_id',
@@ -26,5 +26,18 @@ class Program extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @throws LockTimeoutException
+     */
+    public static function getNextApplicationProgramId(string $key): int
+    {
+        return Cache::lock("programs:{$key}:next_id", 10)->block(5, function () use ($key) {
+            $maxId = self::where('application', $key)
+                ->max('application_program_id') ?? 0;
+
+            return $maxId + 1;
+        });
     }
 }

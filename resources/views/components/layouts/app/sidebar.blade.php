@@ -12,9 +12,13 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                </flux:navlist.group>
+                <flux:navlist.item :href="route('programs.distribution')" :current="request()->routeIs('programs.distribution')" wire:navigate>
+                    {{ __('Web Distribution') }}
+                </flux:navlist.item>
+
+                <flux:navlist.item :href="route('programs.mls')" :current="request()->routeIs('programs.mls')" wire:navigate>
+                    {{ __('Web-MLS') }}
+                </flux:navlist.item>
             </flux:navlist>
 
             <flux:spacer />
