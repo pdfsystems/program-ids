@@ -8,6 +8,7 @@ jobs:
   changelog:
     name: Update changelog
     runs-on: ubuntu-latest
+    environment: Production
     permissions:
       contents: write
 
